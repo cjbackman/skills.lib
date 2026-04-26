@@ -21,7 +21,7 @@ Existing convention to preserve. Do not change field names or casing.
 ---
 base: Goals.base
 Date: 2026-09-30        # target date (ISO)
-GoalID: G<YY>.<n>           # G<YY>.<n>, auto-incremented from existing files
+GoalID: G<YY>.<n>           # G<YY>.<n>, scanned from existing goal files
 Objective: Improve my French
 Key Result: French A2 certificate acquired
 Dimensions:             # subset of Wheel of Life dimensions
@@ -33,7 +33,7 @@ Status:
 
 **Wheel of Life dimensions (fixed set):** Health, Wealth, Play, Relationships, Work, Growth.
 
-**Status taxonomy:** only `In Progress` has been observed in existing goals. On first review or check-in session, ask the user for the full taxonomy (e.g., `Done`, `Abandoned`, `On Hold`) and append it here.
+**Status taxonomy:** only `In Progress` has been observed in existing goals. The full taxonomy is unknown. On first review or check-in session, ask the user for the full set (e.g., `Done`, `Abandoned`, `On Hold`) and use those values for the rest of that session. If the user wants the taxonomy persisted, propose updating this file as a normal vault edit.
 
 ## Goal filenames
 
@@ -45,7 +45,9 @@ When creating a new goal, scan `~/cjbackman/Personal/Growth/Goals/*.md` for `Goa
 
 ## Session log format
 
-Path: `~/cjbackman/Personal/Growth/Sessions/YYYY-MM-DD-<mode>.md`. If multiple sessions same day, append `-2`, `-3`, etc.
+Path: `~/cjbackman/Personal/Growth/Sessions/YYYY-MM-DD-<mode>.md` (e.g., `2026-04-26-checkin.md`). If multiple sessions same day, append `-2`, `-3`, etc. before the extension (e.g., `2026-04-26-checkin-2.md`).
+
+Example session log structure (the coach reproduces these sections in every session log):
 
 ```markdown
 ---
