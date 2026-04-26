@@ -21,7 +21,7 @@ Existing convention to preserve. Do not change field names or casing.
 ---
 base: Goals.base
 Date: 2026-09-30        # target date (ISO)
-GoalID: G<YY>.<n>           # G<YY>.<n>, scanned from existing goal files
+GoalID: G26.3           # G<YY>.<n>, scanned from existing goal files
 Objective: Improve my French
 Key Result: French A2 certificate acquired
 Dimensions:             # subset of Wheel of Life dimensions
