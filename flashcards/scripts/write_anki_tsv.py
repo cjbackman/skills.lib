@@ -41,7 +41,7 @@ def validate_card(card, idx):
         if not text:
             raise ValueError(f"card {idx}: Cloze requires non-empty text")
         if not re.search(r"\{\{c\d+::", text):
-            raise ValueError(f"card {idx}: Cloze missing {{cN::...}} markers")
+            raise ValueError(f"card {idx}: Cloze missing " + "{{cN::...}} markers")
     else:
         raise ValueError(f"card {idx}: type must be 'Basic' or 'Cloze'")
 
