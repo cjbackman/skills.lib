@@ -66,9 +66,9 @@ def render_row(card, deck, tags, source):
 
 
 def write_tsv(payload, out_path):
-    deck = payload["deck"]
+    deck = escape_field(payload["deck"])
     tags = normalize_tags(payload.get("tags", []))
-    source = payload["source"]
+    source = escape_field(payload["source"])
     cards = payload["cards"]
 
     if not cards:
