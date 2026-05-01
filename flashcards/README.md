@@ -53,7 +53,7 @@ Or ask explicitly: "make flashcards from this note", "generate Anki cards from t
 
 ## Vault assumption
 
-Vault root: `~/cjbackman`. If yours lives elsewhere, edit `~/cjbackman` references in `SKILL.md` and `commands/flashcards.md`.
+Vault root: `~/cjbackman`. If yours lives elsewhere, edit `~/cjbackman` references in `SKILL.md` and `references/atom-extraction.md`.
 
 ## Files
 

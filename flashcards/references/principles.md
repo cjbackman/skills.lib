@@ -63,7 +63,7 @@ For each draft card:
 
 1. Check against rules 1-8.
 2. If any rule fails: revise the card with the failed rule as guidance. Re-check.
-3. If second draft still fails: drop the card. Record `Atom <N> draft 1: <rule that failed> — <one-line reason>`.
+3. If second draft still fails: drop the card. Record `Atom <N> draft 1: <rule that failed> (<one-line reason>)`.
 
 After Pass 2 final card list, print the drop log if anything was dropped:
 
