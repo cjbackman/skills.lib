@@ -1,0 +1,9 @@
+#separator:tab
+#html:true
+#notetype column:1
+#deck column:2
+#tags column:5
+
+Basic	Reading	What does the spacing effect predict?	Recall improves when reviews are spaced apart vs. massed.<hr><small><i>Source: ~/cjbackman/Reading/sample.md</i></small>	spaced-repetition memory test
+Cloze	Reading	An {{c1::atomic}} prompt tests a {{c2::single}} fact.	Andy Matuschak emphasizes this rule.<hr><small><i>Source: ~/cjbackman/Reading/sample.md</i></small>	spaced-repetition memory test
+Basic	Reading	Line 1<br>Line 2	Tab    here<hr><small><i>Source: ~/cjbackman/Reading/sample.md</i></small>	spaced-repetition memory test

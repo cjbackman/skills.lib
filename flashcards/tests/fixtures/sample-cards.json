@@ -1,0 +1,22 @@
+{
+  "deck": "Reading",
+  "tags": ["spaced-repetition", "memory test"],
+  "source": "~/cjbackman/Reading/sample.md",
+  "cards": [
+    {
+      "type": "Basic",
+      "front": "What does the spacing effect predict?",
+      "back": "Recall improves when reviews are spaced apart vs. massed."
+    },
+    {
+      "type": "Cloze",
+      "text": "An {{c1::atomic}} prompt tests a {{c2::single}} fact.",
+      "extra": "Andy Matuschak emphasizes this rule."
+    },
+    {
+      "type": "Basic",
+      "front": "Line 1\nLine 2",
+      "back": "Tab\there"
+    }
+  ]
+}
