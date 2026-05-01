@@ -55,11 +55,16 @@ M. [atom]
 ...
 ```
 
-Numbering is **global** across tiers — each atom has a unique number from 1 to total.
+Numbering is **global** across tiers — each atom has a unique number from 1 to total. Omit a tier heading entirely if no atoms fall into that tier.
 
 After the list, print this exact prompt:
 
 > Default approves CORE only. Reply with adjustments — for example: "add 5, 7; drop 2; promote 9 to core". Or "looks good".
+
+User-command vocabulary (interpret loosely):
+- `add N` — include atom N in the approved set (typical for `supporting` / `detail` atoms not approved by default).
+- `drop N` — remove atom N from the approved set, regardless of tier.
+- `promote N to <tier>` — move atom N to a higher tier; usually `supporting` → `core` or `detail` → `core`.
 
 ## Long input handling
 
