@@ -75,13 +75,26 @@ For source attribution: file input uses the resolved path; pasted text uses `pas
 2. Suggest 3-6 tags inferred from content. Show: "Suggested tags: <list>. Accept, edit, or replace."
 3. Build the JSON intermediate per the schema in `references/card-drafting.md`.
 4. Write the JSON to a temp file (e.g. `/tmp/flashcards-<unix-ts>.json`).
-5. Determine the skill directory (the absolute path to the directory containing this `SKILL.md`). Run:
+5. Determine the skill directory (the absolute path to the directory containing this `SKILL.md`). Always write the TSV backup first:
    ```
    python3 <skill-dir>/scripts/write_anki_tsv.py ~/Downloads/flashcards-<source-stem>-YYYYMMDD-HHMMSS.txt < /tmp/flashcards-<unix-ts>.json
    ```
 6. If `~/Downloads/` is unwritable, fall back to `/tmp/` and print the actual path.
-7. Print:
-   > Wrote <N> cards to <path>. Anki → File → Import → select file.
+7. Attempt direct import via AnkiConnect:
+   ```
+   python3 <skill-dir>/scripts/anki_import.py < /tmp/flashcards-<unix-ts>.json
+   ```
+   The script auto-creates the deck (sub-deck `::` syntax preserved) and pre-filters duplicates via `canAddNotes`. Capture stderr — it prints `deck=<name> added=<N> skipped=<M>`. Exit codes:
+   - `0` — imported (or all duplicates, no-op)
+   - `2` — AnkiConnect unreachable / wrong version
+   - `3` — malformed payload (treat as bug)
+   - `4` — partial failure on `addNotes`
+8. Report based on importer result:
+   - **Exit 0:** "Imported <added> new cards into <deck> via AnkiConnect (skipped <skipped> duplicates). TSV backup at <path>."
+   - **Exit 2:** "Anki not running or AnkiConnect not installed. Import manually: Anki → File → Import → <path>."
+   - **Exit 4:** Print added/skipped counts and the TSV path so the user can inspect rejected notes.
+
+For multi-deck runs (e.g. user requested sub-decks like `Wine::Styles`, `Wine::Reds`), repeat steps 3-8 once per JSON intermediate. Each deck gets its own TSV + import call.
 
 ### Filename construction
 
@@ -98,7 +111,8 @@ Timestamp format: `YYYYMMDD-HHMMSS`. On exact-second collision (rare), append `-
 - **`~/Downloads/` missing or unwritable** → write to `/tmp/`, print actual path.
 - **Empty card set after edits** → don't write file; tell user.
 - **User rejects all atoms in Pass 1** → exit cleanly.
-- **Re-runs are stateless** — no memory of prior generations. User dedupes at Anki side (Anki dedupes by first field on import by default).
+- **Re-runs are stateless** — no memory of prior generations. AnkiConnect import dedupes via `canAddNotes` (matches on first field); manual TSV import dedupes the same way by default.
+- **AnkiConnect not installed / Anki closed** — direct import fails with exit 2; skill reports the TSV path so the user can import manually. No retry.
 - **Tag with spaces** — passed through; the writer script splits into multiple tags.
 - **Deck name with `::`** — preserved (Anki sub-deck separator, valid).
 
@@ -108,7 +122,8 @@ Timestamp format: `YYYYMMDD-HHMMSS`. On exact-second collision (rare), append `-
 - `references/principles.md` — 8 audit rules, source footer format, audit procedure
 - `references/atom-extraction.md` — Pass 1: tiers, extraction prompt, output format, long-input handling
 - `references/card-drafting.md` — Pass 2: cards-per-atom heuristics, type selection, JSON intermediate schema
-- `scripts/write_anki_tsv.py` — JSON → Anki TSV writer
+- `scripts/write_anki_tsv.py` — JSON → Anki TSV writer (backup / fallback path)
+- `scripts/anki_import.py` — JSON → AnkiConnect direct import (primary path when Anki is running)
 - `tests/fixtures/sample-cards.json`, `sample-cards.expected.txt` — writer script test fixtures
 - `commands/flashcards.md` — slash command wrapper
 - `README.md` — install + usage
