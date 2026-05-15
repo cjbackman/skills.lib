@@ -51,8 +51,12 @@ def main() -> int:
     fd, tmp = tempfile.mkstemp(suffix=".xlsx", dir=str(path.parent))
     os.close(fd)
     tmp_path = Path(tmp)
-    wb.save(tmp_path)
-    os.replace(tmp_path, path)
+    try:
+        wb.save(tmp_path)
+        os.replace(tmp_path, path)
+    except Exception:
+        tmp_path.unlink(missing_ok=True)
+        raise
 
     print(f"Wrote '{args.exercise}' to row {args.row}.")
     return 0
