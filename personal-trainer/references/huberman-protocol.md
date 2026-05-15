@@ -15,7 +15,7 @@ Apply when proposing exercise swaps in the gym flow. These are the constraints a
 
 A and B alternate week to week. Compound lifts work in both; isolation/machine work fits B better.
 
-Tag every library exercise with `a_friendly`, `b_friendly`, or `both`.
+Tag every library exercise with `a`, `b`, or `both`.
 
 ## The big six
 
