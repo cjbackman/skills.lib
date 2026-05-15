@@ -26,6 +26,7 @@ Do not run this skill for casual training questions. If you're not sure whether 
 - Never write xlsx without an explicit user approval.
 - All writes go through the scripts in `scripts/`. Never use `openpyxl` directly from the chat.
 - Each script accepts `--logbook` and exits non-zero on error; capture stderr and surface it to the user.
+- Determine the skill directory at runtime (the absolute path to the directory containing this `SKILL.md`) and call scripts as `<skill-dir>/scripts/<name>.py`. Never use relative paths — `cwd` is the user's project, not the skill directory.
 
 ## Sub-flow router
 
@@ -40,10 +41,10 @@ Read `references/huberman-protocol.md` and `references/exercise-library.md` befo
 ### 1. Load current template
 
 ```bash
-python3 scripts/read_logbook.py --logbook ~/Downloads/Training\ Logbook.xlsx --sheet resistance
+python3 <skill-dir>/scripts/read_logbook.py --logbook ~/Downloads/Training\ Logbook.xlsx --sheet resistance
 ```
 
-Parse the JSON. Cache `template` (list of `{row, day, description, muscle_group, exercise}`) and `next_empty_week` (int) in working memory.
+Parse the JSON. Cache `template` (list of `{row, day, description, muscle_group, exercise}`) and `next_empty_week` (int) in working memory. `next_empty_week` is surfaced in the write confirmation at step 5 so the user knows which week column tracks the new exercise's reps/weights going forward.
 
 ### 2. Identify the swap target
 
@@ -96,11 +97,13 @@ Wait for the user to choose. Accept:
 For each approved swap:
 
 ```bash
-python3 scripts/write_resistance_swap.py \
+python3 <skill-dir>/scripts/write_resistance_swap.py \
   --logbook ~/Downloads/Training\ Logbook.xlsx \
   --row <ROW> \
   --exercise "<NAME>"
 ```
+
+After the script returns, confirm: "Wrote `<NAME>` to row `<ROW>` (`<muscle group>`). New reps/weights for this exercise will be logged in Week `<next_empty_week>` going forward."
 
 If the script exits non-zero, surface the stderr message and stop. Do not retry silently.
 
@@ -168,7 +171,7 @@ Apply edits in place, re-show the affected weeks, re-ask. Loop until approval.
 Read the running sheet first:
 
 ```bash
-python3 scripts/read_logbook.py --logbook ~/Downloads/Training\ Logbook.xlsx --sheet running
+python3 <skill-dir>/scripts/read_logbook.py --logbook ~/Downloads/Training\ Logbook.xlsx --sheet running
 ```
 
 - If `filled_weeks` is empty → write at `start_row = 2`.
@@ -182,7 +185,7 @@ Build the JSON payload and pipe to the script:
 
 ```bash
 echo '{"start_row": 2, "weeks": [...]}' | \
-  python3 scripts/write_running_plan.py --logbook ~/Downloads/Training\ Logbook.xlsx [--force]
+  python3 <skill-dir>/scripts/write_running_plan.py --logbook ~/Downloads/Training\ Logbook.xlsx [--force]
 ```
 
 Surface success message with the count of weeks written.

@@ -11,8 +11,8 @@ Symlink into Claude Code's project skills directory (see repo root README for th
 
 ```bash
 pip install openpyxl
-# or with uv (recommended)
-uv tool install openpyxl
+# or with uv
+uv pip install openpyxl
 ```
 
 The scripts also work via `uv run --script` (inline metadata declares the dep), which means a system `python3` without openpyxl is fine as long as `uv` is on PATH.
