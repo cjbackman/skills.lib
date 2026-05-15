@@ -36,10 +36,22 @@ def main() -> int:
         print(f"Invalid JSON on stdin: {exc}", file=sys.stderr)
         return 2
 
+    if not isinstance(payload, dict):
+        print("Payload must be a JSON object.", file=sys.stderr)
+        return 2
+
     start_row = payload.get("start_row")
     weeks = payload.get("weeks")
-    if not isinstance(start_row, int) or not isinstance(weeks, list):
-        print("Payload must include int 'start_row' and list 'weeks'.", file=sys.stderr)
+    if (
+        not isinstance(start_row, int)
+        or isinstance(start_row, bool)
+        or not isinstance(weeks, list)
+        or not all(isinstance(w, dict) for w in weeks)
+    ):
+        print(
+            "Payload must include int 'start_row' and list of dict 'weeks'.",
+            file=sys.stderr,
+        )
         return 2
 
     try:
@@ -48,7 +60,11 @@ def main() -> int:
         print("Logbook open in Excel. Close and retry.", file=sys.stderr)
         return 3
 
-    ws = wb[RUNNING_SHEET]
+    try:
+        ws = wb[RUNNING_SHEET]
+    except KeyError:
+        print(f"Sheet '{RUNNING_SHEET}' not found in workbook.", file=sys.stderr)
+        return 2
 
     if not args.force:
         for offset in range(len(weeks)):
