@@ -83,6 +83,7 @@ After user approves cards, build this JSON for the writer script. Field names ar
   "deck": "Reading",
   "tags": ["spaced-repetition", "memory", "borretti"],
   "source": "~/cjbackman/Reading/borretti-sr.md",
+  "basic_reverse": false,
   "cards": [
     {
       "type": "Basic",
@@ -103,6 +104,9 @@ Required fields:
 - `tags` — array of strings. Tags with embedded spaces will be split by the writer script.
 - `source` — string, the resolved source path or `pasted YYYY-MM-DD`.
 - `cards` — non-empty array.
+
+Optional fields:
+- `basic_reverse` — boolean (default `false`). When `true`, all `type: "Basic"` cards are emitted as Anki's `Basic (and reversed card)` notetype, generating both forward and backward cards from one note. Cloze cards are unaffected. Set per user prompt at the output stage.
 
 Per-card required fields:
 - `type` — `"Basic"` or `"Cloze"`.

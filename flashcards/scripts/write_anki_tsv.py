@@ -50,13 +50,13 @@ def build_source_footer(source):
     return f'<hr><small><i>Source: {source}</i></small>'
 
 
-def render_row(card, deck, tags, source):
+def render_row(card, deck, tags, source, basic_notetype):
     """Build one TSV row."""
     footer = build_source_footer(source)
     if card["type"] == "Basic":
         front = escape_field(card["front"])
         back = escape_field(card["back"]) + footer
-        cols = ["Basic", deck, front, back, " ".join(tags)]
+        cols = [basic_notetype, deck, front, back, " ".join(tags)]
     else:
         text = escape_field(card["text"])
         extra = escape_field(card.get("extra", ""))
@@ -70,6 +70,7 @@ def write_tsv(payload, out_path):
     tags = normalize_tags(payload.get("tags", []))
     source = escape_field(payload["source"])
     cards = payload["cards"]
+    basic_notetype = "Basic (and reversed card)" if payload.get("basic_reverse") else "Basic"
 
     if not cards:
         raise ValueError("no cards to write")
@@ -86,7 +87,7 @@ def write_tsv(payload, out_path):
         "",
     ]
     for card in cards:
-        lines.append(render_row(card, deck, tags, source))
+        lines.append(render_row(card, deck, tags, source, basic_notetype))
 
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 

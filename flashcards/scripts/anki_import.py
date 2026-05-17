@@ -66,14 +66,14 @@ def validate_card(card, idx):
         raise ValueError(f"card {idx}: type must be 'Basic' or 'Cloze'")
 
 
-def build_note(card, deck, tags, source):
+def build_note(card, deck, tags, source, basic_model):
     footer = build_source_footer(source)
     if card["type"] == "Basic":
         front = field_html(card["front"])
         back = field_html(card["back"]) + footer
         return {
             "deckName": deck,
-            "modelName": "Basic",
+            "modelName": basic_model,
             "fields": {"Front": front, "Back": back},
             "tags": tags,
             "options": {"allowDuplicate": False},
@@ -129,7 +129,8 @@ def main():
         print(f"createDeck failed: {e}", file=sys.stderr)
         return 2
 
-    notes = [build_note(c, deck, tags, source) for c in cards]
+    basic_model = "Basic (and reversed card)" if payload.get("basic_reverse") else "Basic"
+    notes = [build_note(c, deck, tags, source, basic_model) for c in cards]
 
     try:
         addable = post("canAddNotes", notes=notes)

@@ -73,14 +73,15 @@ For source attribution: file input uses the resolved path; pasted text uses `pas
 
 1. Prompt: "Deck name?" (no default — user supplies per run).
 2. Suggest 3-6 tags inferred from content. Show: "Suggested tags: <list>. Accept, edit, or replace."
-3. Build the JSON intermediate per the schema in `references/card-drafting.md`.
-4. Write the JSON to a temp file (e.g. `/tmp/flashcards-<unix-ts>.json`).
-5. Determine the skill directory (the absolute path to the directory containing this `SKILL.md`). Always write the TSV backup first:
+3. If the card set contains any Basic cards, prompt: **"Basic cards: one-way (Basic) or two-way (Basic and reversed card)? Default: one-way."** Set `basic_reverse: true` in the payload when the user picks two-way. Skip this prompt when no Basic cards exist.
+4. Build the JSON intermediate per the schema in `references/card-drafting.md`.
+5. Write the JSON to a temp file (e.g. `/tmp/flashcards-<unix-ts>.json`).
+6. Determine the skill directory (the absolute path to the directory containing this `SKILL.md`). Always write the TSV backup first:
    ```
    python3 <skill-dir>/scripts/write_anki_tsv.py ~/Downloads/flashcards-<source-stem>-YYYYMMDD-HHMMSS.txt < /tmp/flashcards-<unix-ts>.json
    ```
-6. If `~/Downloads/` is unwritable, fall back to `/tmp/` and print the actual path.
-7. Attempt direct import via AnkiConnect:
+7. If `~/Downloads/` is unwritable, fall back to `/tmp/` and print the actual path.
+8. Attempt direct import via AnkiConnect:
    ```
    python3 <skill-dir>/scripts/anki_import.py < /tmp/flashcards-<unix-ts>.json
    ```
@@ -89,7 +90,7 @@ For source attribution: file input uses the resolved path; pasted text uses `pas
    - `2` — AnkiConnect unreachable / wrong version
    - `3` — malformed payload (treat as bug)
    - `4` — partial failure on `addNotes`
-8. Report based on importer result:
+9. Report based on importer result:
    - **Exit 0:** "Imported <added> new cards into <deck> via AnkiConnect (skipped <skipped> duplicates). TSV backup at <path>."
    - **Exit 2:** "Anki not running or AnkiConnect not installed. Import manually: Anki → File → Import → <path>."
    - **Exit 4:** Print added/skipped counts and the TSV path so the user can inspect rejected notes.
