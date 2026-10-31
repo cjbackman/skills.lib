@@ -37,7 +37,8 @@ All relative to the vault `~/cjbackman/`:
      - `Do` — plain errand / task
    - **Tag goal:** `G26.5` etc. if it clearly serves a Focus goal; `job-prep` for new-job items; `—` if none. Don't stretch to force a match.
    - **Size:** S (<30 min), M (an evening), L (a weekend+).
-   - Line format: `- [ ] Title — summary · goal · size · added YYYY-MM-DD · from [[YYYY-MM-DD]]`
+   - **Due date:** if CJ wrote one, add `due YYYY-MM-DD`. If the item is time-sensitive (booking, travel, gift, event, deadline, anything that gets worse or impossible later) and has no date → don't guess one; list it under "Needs a date" in the output.
+   - Line format: `- [ ] Title — summary · goal · size · due YYYY-MM-DD (optional) · added YYYY-MM-DD · from [[YYYY-MM-DD]]`
    - Work-only items → don't add; list them under "Skipped" in the output.
    - Ambiguous fragment you can't interpret → add to `Do` as-is with `(unclear)`; don't guess.
 3. Append new items to the right sections of `Backlog.md`. Never delete or rewrite CJ's existing lines. Move checked `[x]` items from other sections into `## Done` (keep them as they are).
@@ -45,10 +46,13 @@ All relative to the vault `~/cjbackman/`:
 
 ## 3. Suggest today
 
-Pick from the whole backlog (not just new items). Output in chat, nothing written to the vault:
+Pick from the whole backlog (not just new items). Output in chat, nothing written to the vault except due dates CJ gives in reply (see below):
 
 ```
 ## Today — <weekday YYYY-MM-DD>
+
+**Due soon** (only if any)
+- [ ] <item> — due <date> (<n> days)
 
 **Do** (max 3)
 - [ ] <item> — <why: goal / unblocks / quick win>
@@ -64,9 +68,13 @@ Pick from the whole backlog (not just new items). Output in chat, nothing writte
 ---
 Inbox: N new → Read a · Try b · Build c · Do d · Skipped s
 Stale: <items >4 weeks old, untouched — keep or drop?> (only if any)
+Needs a date: <time-sensitive items without `due` — when should this be done by?> (only if any)
 ```
 
+If CJ answers with dates, write `due YYYY-MM-DD` into those backlog lines (only edit to an existing line the skill makes).
+
 Selection rules:
+- **Due dates override Focus order.** Surface an item under "Due soon" once it's within its lead time: S → 3 days, M → 7 days, L → 14 days before `due`. Overdue items always show, marked **overdue**. Due-soon items don't count toward the 3 Do slots.
 - Order by `Now.md` Focus order, then size: prefer S/M on weekdays, allow L on Fri–Sun.
 - Prefer items carried over from earlier days over shiny new ones; say "carried over" when so.
 - Job-prep: until `Now.md` defines it, only suggest captured job-prep items, plus a one-time nudge to schedule the scoping session if none exists.
