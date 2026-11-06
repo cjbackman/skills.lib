@@ -1,6 +1,6 @@
 ---
 name: inbox
-description: Review CJ's private Obsidian inbox together with him. Collects every unprocessed note in `~/cjbackman/Inbox/` (except today's), walks the captures one item or theme at a time with a proposed classification, and writes agreed items to `~/cjbackman/Personal/Backlog.md`. Marks notes `processed` when done. Triggers on `/inbox`, "triage my inbox", "process my inbox", "review my inbox".
+description: Review CJ's Obsidian inbox together with him. Collects every unprocessed note in `~/cjbackman/Inbox/` (except today's), walks the captures one item or theme at a time with a proposed classification, and writes agreed items to `~/cjbackman/Personal/Backlog.md`. Marks notes `processed` when done. Triggers on `/inbox`, "triage my inbox", "process my inbox", "review my inbox".
 ---
 
 # Inbox
@@ -45,7 +45,6 @@ Proposal: <section> · <goal tag> · <size> — <one-line why>
 - **Goal tag:** `G26.5` etc. if it clearly serves a Focus goal; `job-prep` for new-job items; `—` if none. Don't force a match.
 - **Size:** S (<30 min), M (an evening), L (a weekend or more).
 - **Dupe of a backlog line** → propose `skip (dupe of: <line>)` or `merge`.
-- **Work item** → raise it like any other, flagged `work`, and discuss with CJ how to handle it. Never write it to the personal backlog unless CJ says to.
 - **Ambiguous fragment** → say you can't read it and ask; don't guess.
 - **Time-sensitive item** (booking, gift, event, deadline) with no date → ask for a due date as part of the proposal.
 
@@ -69,10 +68,10 @@ After each decision, not at the end, so stopping halfway loses nothing:
 
 ## 5. Close
 
-One line: `Added a (Read x · Try y · Build z · Do w) · dropped d · work items: <how handled> · notes marked: n`.
+One line: `Added a (Read x · Try y · Build z · Do w) · dropped d · notes marked: n`.
 
 ## Don'ts
 
 - Don't plan the day or suggest what to do next. This skill is triage only.
 - Don't edit `Now.md`, goal notes, or inbox bullets. Don't add structure to inbox notes; the `processed` property is the only thing written there.
-- Don't touch `Personal/TODO.md` or anything under `Work/` unless CJ explicitly says so while discussing a work item.
+- Don't touch `Personal/TODO.md` or anything under `Work/`.

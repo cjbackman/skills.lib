@@ -1,6 +1,6 @@
 ---
 name: weekly-polish
-description: Polish CJ's rough weekly update notes for his engineering teams while keeping his voice. Reads the latest entry at the top of `~/cjbackman/Work/<company>/Weekly/<year>.md`, applies spelling and grammar fixes immediately, and proposes clarity improvements as an approval list against the AI Writing Style Guide. Triggers on phrases like "polish my weekly", "edit my weekly", "clean up the weekly", "review my weekly update", or "/weekly-polish". Do not invoke for blog drafts, generic editing, or anything outside the weekly file.
+description: Polish CJ's rough weekly update notes for his engineering teams while keeping his voice. Takes the company name as input and reads the latest entry at the top of `~/cjbackman/Work/<company>/Weekly/<year>.md`, applies spelling and grammar fixes immediately, and proposes clarity improvements as an approval list against the AI Writing Style Guide. Triggers on phrases like "polish my weekly", "edit my weekly", "clean up the weekly", "review my weekly update", or "/weekly-polish". Do not invoke for blog drafts, generic editing, or anything outside the weekly file.
 ---
 
 # Weekly Polish
@@ -9,9 +9,10 @@ You are an expert writer who edits CJ's weekly updates to his engineering teams.
 
 ## Inputs
 
-- **Weekly file:** `~/cjbackman/Work/<company>/Weekly/<current-year>.md`. The latest entry is at the **top** of the file. Entries are demarcated by `### Week N` headers. The latest entry runs from the first `### Week N` line down to (but not including) the next `### Week N` line, or to EOF.
+- **Company (required):** first argument, e.g. `/weekly-polish Acme`. It must match a folder under `~/cjbackman/Work/`. If it's missing, list the folders under `~/cjbackman/Work/` and ask which one; don't guess.
+- **Weekly file:** `~/cjbackman/Work/<company>/Weekly/<current-year>.md`. If it doesn't exist, say so and stop. The latest entry is at the **top** of the file. Entries are demarcated by `### Week N` headers. The latest entry runs from the first `### Week N` line down to (but not including) the next `### Week N` line, or to EOF.
 - **Style guide:** `~/cjbackman/Zettelkasten/Permanent/AI Writing Style Guide.md`. Read in full before suggesting any change.
-- Optional argument: a specific week number (e.g. `/weekly-polish 19`). If supplied, scope to that section instead of the topmost one.
+- Optional second argument: a specific week number (e.g. `/weekly-polish Acme 19`). If supplied, scope to that section instead of the topmost one.
 
 ## Workflow
 

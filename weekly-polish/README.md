@@ -1,6 +1,6 @@
 # weekly-polish
 
-Polishes CJ's rough weekly updates to his engineering teams while keeping his voice. Reads the latest entry at the top of the weekly updates file in the vault (path set in `SKILL.md`), fixes spelling and grammar errors immediately, and proposes clarity improvements as a numbered approval list against the AI Writing Style Guide.
+Polishes CJ's rough weekly updates to his engineering teams while keeping his voice. Reads the latest entry at the top of `~/cjbackman/Work/<company>/Weekly/<year>.md`, where the company is passed as the first argument, fixes spelling and grammar errors immediately, and proposes clarity improvements as a numbered approval list against the AI Writing Style Guide.
 
 ## What it does
 
@@ -14,7 +14,7 @@ Polishes CJ's rough weekly updates to his engineering teams while keeping his vo
 
 | Path | Purpose |
 |---|---|
-| Weekly file (path set in `SKILL.md`) | Weekly updates. Latest entry at the top. |
+| `~/cjbackman/Work/<company>/Weekly/<year>.md` | Weekly updates. Latest entry at the top. |
 | `~/cjbackman/Zettelkasten/Permanent/AI Writing Style Guide.md` | Voice and anti-pattern rules. |
 
 The vault is assumed to live at `~/cjbackman`. Move the vault and you'll need to update the paths in `SKILL.md`.
